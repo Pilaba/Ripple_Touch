@@ -12,10 +12,27 @@ import 'package:ripple_touch/RippleManager.dart';
 
 ## How to use
 
+Initialize the overlay as soon as you want (preferably at the application start).
 ```dart
-Future.delayed(Duration.zero).then((value) => RippleManager().init(context));
+
+// Initialize
+@override
+void initState() {
+  super.initState();
+  Future.delayed(Duration.zero).then((value) => RippleManager().init(context));
+}
+
+// Destroy the thing
+RippleManager().dispose();
 ```
 
 For a more detail example please take a look at the `example` folder.
 
+## Demo
 
+<img src="" width="500" height="1000">
+
+
+## -
+
+If something is missing, feel free to open a ticket or contribute!
