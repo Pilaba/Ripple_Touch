@@ -13,7 +13,20 @@ class TapRippleManager {
   late OverlayEntry? _overlayEntry;
   late var cancelRipple = false;        // Flag to cancel the ripple effect when the user moves the pointer
 
-  void init(BuildContext context, {Widget? customChild, Function? onTap}) {
+  void init(BuildContext context, {
+    Widget? customChild,
+    Function? onTap,
+    bool enableRippleOnSwipe = false,
+    Curve curve = Curves.linear,
+    Duration fadeInDuration = const Duration(milliseconds: 250),
+    Duration fadeOutDuration = const Duration(milliseconds: 200),
+    double rightPadding = 25,
+    double bottomPadding = 25,
+    double width = 50,
+    double height = 50,
+    Color backgroundColor = const Color(0xFFB2DFDB),
+    BoxBorder? border,
+  }) {
     if(_isInitialized) return;
 
     _overlayEntry = OverlayEntry(
@@ -24,7 +37,7 @@ class TapRippleManager {
         bottom: 0,
         child: Listener(
           behavior: HitTestBehavior.translucent,
-          onPointerMove: (details) {
+          onPointerMove: enableRippleOnSwipe ? null : (details) {
             cancelRipple = true;
           },
           onPointerUp: (details) async {
@@ -34,7 +47,7 @@ class TapRippleManager {
             _overlayEntry?.markNeedsBuild();
 
             onTap?.call();
-            await Future<void>.delayed(const Duration(seconds: 1));
+            await Future<void>.delayed(fadeInDuration + fadeOutDuration);
 
             _tapPositions.remove(details.position);
             _overlayEntry?.markNeedsBuild();
@@ -43,7 +56,22 @@ class TapRippleManager {
             child: Material(
               color: Colors.transparent,
               child: Stack(
-                children: _tapPositions.map((position) => TapRipple(position: position, key: Key("$position"), child: customChild)).toList()
+                children: _tapPositions.map((position) {
+                  return TapRipple(
+                    key: Key("$position"),
+                    position: position,
+                    curve: curve,
+                    fadeInDuration: fadeInDuration,
+                    fadeOutDuration: fadeOutDuration,
+                    rightPadding: rightPadding,
+                    bottomPadding: bottomPadding,
+                    width: width,
+                    height: height,
+                    backgroundColor: backgroundColor,
+                    border: border,
+                    child: customChild,
+                  );
+                }).toList()
               )
             ),
           ),

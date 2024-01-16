@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal), useMaterial3: true,),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal), useMaterial3: false,),
       home: const MyHomePage(),
     );
   }
@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -37,8 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Demo ripple_touch"),
+        backgroundColor: Colors.teal,
+        title: const Text("Demo"),
       ),
       body: Center(
         child: Column(
@@ -47,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text('Tap anywhere in the app',),
             MaterialButton(
               color: Colors.orange[300],
-              child: Text("Navigate to newPage"),
+              child: const Text("Navigate to newPage"),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PageTwo()));
               },
@@ -55,10 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: const Text("Use custom touch widget"),
+        icon: const Icon(Icons.star),
+        backgroundColor: Colors.teal[300],
+        onPressed: () {
+          TapRippleManager().dispose();
+          TapRippleManager().init(context, customChild: const Icon(Icons.star, color: Colors.orange, size: 50));
+        },
+      ),
     );
   }
 }
-
 
 class PageTwo extends StatefulWidget {
   const PageTwo({super.key});
@@ -72,8 +79,8 @@ class _PageTwoState extends State<PageTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("page Two"),
+        backgroundColor: Colors.teal,
+        title: const Text("page Two"),
       ),
       body: Center(
         child: Column(
@@ -81,7 +88,7 @@ class _PageTwoState extends State<PageTwo> {
           children: <Widget> [
             MaterialButton(
               color: Colors.indigo[200],
-              child: Text("Navigate back"),
+              child: const Text("Navigate back"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
