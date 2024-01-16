@@ -38,7 +38,7 @@ class RippleManager {
         child: Listener(
           behavior: HitTestBehavior.translucent,
           onPointerMove: enableRippleOnSwipe ? null : (details) {
-            cancelRipple = true;
+            if(details.delta.distance > 0.1) cancelRipple = true;
           },
           onPointerUp: (details) async {
             if(cancelRipple) { cancelRipple = false; return; }

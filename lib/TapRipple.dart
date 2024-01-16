@@ -52,8 +52,7 @@ class _TapRippleState extends State<TapRipple> with TickerProviderStateMixin {
     );
   }
 
-  @override
-  void dispose() {
+  dispose() {
     _controller.dispose();
     super.dispose();
   }
