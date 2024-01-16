@@ -30,7 +30,7 @@ For a more detail example please take a look at the `example` folder.
 
 ## Demo
 
-<img src="" width="500" height="1000">
+<img src="https://raw.githubusercontent.com/Pilaba/Ripple_Touch/master/example/demo.gif" width="500" height="1000">
 
 
 ## -
