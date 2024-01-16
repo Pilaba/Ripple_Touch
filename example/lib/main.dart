@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ripple_touch/TapRippleManager.dart';
+import 'package:ripple_touch/RippleManager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero).then((value) => TapRippleManager().init(context));
+    Future.delayed(Duration.zero).then((value) => RippleManager().init(context));
   }
 
   @override
@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
         icon: const Icon(Icons.star),
         backgroundColor: Colors.teal[300],
         onPressed: () {
-          TapRippleManager().dispose();
-          TapRippleManager().init(context, customChild: const Icon(Icons.star, color: Colors.orange, size: 50));
+          RippleManager().dispose();
+          RippleManager().init(context, customChild: const Icon(Icons.star, color: Colors.orange, size: 50));
         },
       ),
     );

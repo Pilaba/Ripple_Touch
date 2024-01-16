@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ripple_touch/TapRipple.dart';
 
-class TapRippleManager {
+class RippleManager {
   // SINGLETON
-  TapRippleManager._privateConstructor() { _InitSingleton(); }
-  static final TapRippleManager _instance = TapRippleManager._privateConstructor();
-  factory TapRippleManager() => _instance;
+  RippleManager._privateConstructor() { _InitSingleton(); }
+  static final RippleManager _instance = RippleManager._privateConstructor();
+  factory RippleManager() => _instance;
   void _InitSingleton() { }
 
   late var _isInitialized  = false;      // Flag to check if the TapRipple has been initialized
