@@ -3,10 +3,10 @@ import 'package:ripple_touch/TapRipple.dart';
 
 class RippleManager {
   // SINGLETON
-  RippleManager._privateConstructor() { _InitSingleton(); }
+  RippleManager._privateConstructor() { initSingleton(); }
   static final RippleManager _instance = RippleManager._privateConstructor();
   factory RippleManager() => _instance;
-  void _InitSingleton() { }
+  void initSingleton() { }
 
   late var _isInitialized  = false;            // Flag to check if the TapRipple has been initialized
   late final _tapPositions = <DateTime, Offset>{ }; // List of tap positions { timestamp : Offset }
@@ -83,7 +83,7 @@ class RippleManager {
     if(_overlayEntry != null) {
       Overlay.of(context).insert(_overlayEntry!);
       _isInitialized = true;
-    };
+    }
   }
 
   void dispose() {

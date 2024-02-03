@@ -1,6 +1,6 @@
 name: ripple_touch
-description: "Add a ripple touch effect when tap the screen"
-version: 1.0.0
+description: "Add a ripple touch effect when tap anywhere in the screen for a brief moment"
+version: 1.0.2
 homepage: https://github.com/Pilaba/Ripple_Touch
 
 environment:
@@ -14,7 +14,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
