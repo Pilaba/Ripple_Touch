@@ -4,7 +4,7 @@ Add a ripple touch effect when tap the screen
 
 ## Installation
 
-Add `ripple_touch: ^1.0.0` in your `pubspec.yaml` dependencies. And import it:
+Add `ripple_touch` in your `pubspec.yaml` dependencies. And import it:
 
 ```dart
 import 'package:ripple_touch/RippleManager.dart';
