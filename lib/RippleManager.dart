@@ -8,10 +8,10 @@ class RippleManager {
   factory RippleManager() => _instance;
   void _InitSingleton() { }
 
-  late var _isInitialized  = false;      // Flag to check if the TapRipple has been initialized
-  late final _tapPositions = <Offset>[]; // List of tap positions
+  late var _isInitialized  = false;            // Flag to check if the TapRipple has been initialized
+  late final _tapPositions = <DateTime, Offset>{ }; // List of tap positions { timestamp : Offset }
   late OverlayEntry? _overlayEntry;
-  late var cancelRipple = false;        // Flag to cancel the ripple effect when the user moves the pointer
+  late var cancelRipple = false;               // Flag to cancel the ripple effect when the user moves the pointer
 
   void init(BuildContext context, {
     Widget? customChild,
@@ -42,24 +42,25 @@ class RippleManager {
           },
           onPointerUp: (details) async {
             if(cancelRipple) { cancelRipple = false; return; }
+            var currentTime = DateTime.now();
 
-            _tapPositions.add(details.position);
+            _tapPositions[currentTime] = details.position;
             _overlayEntry?.markNeedsBuild();
 
             onTap?.call();
             await Future<void>.delayed(fadeInDuration + fadeOutDuration);
 
-            _tapPositions.remove(details.position);
+            _tapPositions.remove(currentTime);
             _overlayEntry?.markNeedsBuild();
           },
           child: IgnorePointer(
             child: Material(
               color: Colors.transparent,
               child: Stack(
-                children: _tapPositions.map((position) {
+                children: _tapPositions.entries.map((entry) {
                   return TapRipple(
-                    key: Key("$position"),
-                    position: position,
+                    key: Key("${entry.key}"),
+                    position: entry.value,
                     curve: curve,
                     fadeInDuration: fadeInDuration,
                     fadeOutDuration: fadeOutDuration,
