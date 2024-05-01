@@ -1,6 +1,6 @@
 name: ripple_touch
 description: "Add a ripple touch effect when tap anywhere in the screen for a brief moment"
-version: 1.0.2
+version: 1.1.0
 homepage: https://github.com/Pilaba/Ripple_Touch
 
 environment:

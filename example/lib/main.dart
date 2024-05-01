@@ -29,7 +29,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero).then((value) => RippleManager().init(context));
+    Future.delayed(Duration.zero).then((value) => RippleManager().init(
+      context,
+      fadeInDuration: const Duration(milliseconds: 300),
+      fadeOutDuration: const Duration(milliseconds: 0),
+      enableRippleOnSwipe: true,
+      isAnimationReverse: true,  // NEW
+      extraScale: 0.0, // NEW
+    ));
   }
 
   @override

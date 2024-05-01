@@ -16,7 +16,7 @@ class RippleManager {
   void init(BuildContext context, {
     Widget? customChild,
     Function? onTap,
-    bool enableRippleOnSwipe = false,
+    bool enableRippleOnSwipe = true,
     Curve curve = Curves.linear,
     Duration fadeInDuration = const Duration(milliseconds: 250),
     Duration fadeOutDuration = const Duration(milliseconds: 200),
@@ -26,6 +26,8 @@ class RippleManager {
     double height = 50,
     Color backgroundColor = const Color(0xFFB2DFDB),
     BoxBorder? border,
+    bool isAnimationReverse = false,
+    double extraScale = 0.0,
   }) {
     if(_isInitialized) return;
 
@@ -55,25 +57,27 @@ class RippleManager {
           },
           child: IgnorePointer(
             child: Material(
-              color: Colors.transparent,
-              child: Stack(
-                children: _tapPositions.entries.map((entry) {
-                  return TapRipple(
-                    key: Key("${entry.key}"),
-                    position: entry.value,
-                    curve: curve,
-                    fadeInDuration: fadeInDuration,
-                    fadeOutDuration: fadeOutDuration,
-                    rightPadding: rightPadding,
-                    bottomPadding: bottomPadding,
-                    width: width,
-                    height: height,
-                    backgroundColor: backgroundColor,
-                    border: border,
-                    child: customChild,
-                  );
-                }).toList()
-              )
+                color: Colors.transparent,
+                child: Stack(
+                    children: _tapPositions.entries.map((entry) {
+                      return TapRipple(
+                        key: Key("${entry.key}"),
+                        position: entry.value,
+                        curve: curve,
+                        fadeInDuration: fadeInDuration,
+                        fadeOutDuration: fadeOutDuration,
+                        rightPadding: rightPadding,
+                        bottomPadding: bottomPadding,
+                        width: width,
+                        height: height,
+                        backgroundColor: backgroundColor,
+                        border: border,
+                        isAnimationReverse: isAnimationReverse,
+                        extraScale: extraScale,
+                        child: customChild,
+                      );
+                    }).toList()
+                )
             ),
           ),
         ),

@@ -14,10 +14,13 @@ class TapRipple extends StatefulWidget {
   final double height;
   final Color backgroundColor;
   final BoxBorder? border;
+  final bool isAnimationReverse;
+  final double extraScale;
 
   const TapRipple({
     this.child, required this.position, required this.curve, required this.fadeInDuration, required this.fadeOutDuration,
     required this.rightPadding, required this.bottomPadding, required this.width, required this.height, required this.backgroundColor, this.border,
+    required this.isAnimationReverse, required this.extraScale,
     Key? key
   }) : super(key: key);
 
@@ -33,16 +36,16 @@ class _TapRippleState extends State<TapRipple> with TickerProviderStateMixin {
     return AnimatedBuilder(
       animation: _controller,
       builder: (_, child) => Positioned(
-        left: widget.position.dx - widget.rightPadding,
-        top: widget.position.dy - widget.bottomPadding,
-        child: AnimatedOpacity(
-          duration: widget.fadeOutDuration,
-          opacity: _controller.value == 1 ? 0 : 1,
-          child: Transform.scale(
-            scale: _controller.value,
-            child: child,
-          ),
-        )
+          left: widget.position.dx - widget.rightPadding,
+          top: widget.position.dy - widget.bottomPadding,
+          child: AnimatedOpacity(
+            duration: widget.fadeOutDuration,
+            opacity: 1 - _controller.value,
+            child: Transform.scale(
+              scale: widget.isAnimationReverse ? (1 + widget.extraScale - _controller.value) : _controller.value,
+              child: child,
+            ),
+          )
       ),
       child: widget.child ?? Container(
         width: widget.width,
@@ -58,5 +61,3 @@ class _TapRippleState extends State<TapRipple> with TickerProviderStateMixin {
     super.dispose();
   }
 }
-
-
